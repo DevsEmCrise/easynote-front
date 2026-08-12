@@ -1,0 +1,45 @@
+name: Deploy Frontend AWS
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build project
+        run: npm run build 
+
+      - name: Login DockerHub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+      
+      - name: Build Docker Image
+        run: docker build -t beatrizschindler/easynote_frontend_image .
+       
+      - name: Push image docker
+        run: docker push beatrizschindler/easynote_frontend_image
+      
+  deploy:
+      needs: build
+      runs-on: self-hosted
+      steps:
+        - name: Pull image from docker hub
+          run: docker pull beatrizschindler/easynote_frontend_image:latest
+        - name: Remove docker container
+          run: docker rm -f easynote_backend
+        - name: Run docker container
+          run: docker run -d -p 80:80 --restart unless-stopped --name easynote_frontend beatrizschindler/easynote_frontend_image
