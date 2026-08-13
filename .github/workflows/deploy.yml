@@ -2,7 +2,7 @@ name: Deploy Frontend + ECR
 
 on:
   push:
-    branches: [ master, Testando-pipeline ]
+    branches: [ master ]
   workflow_dispatch:
 
 env:
