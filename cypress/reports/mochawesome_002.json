@@ -1,0 +1,186 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 4,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-10-10T19:27:42.542Z",
+    "end": "2026-10-10T19:28:26.812Z",
+    "duration": 44270,
+    "testsRegistered": 5,
+    "passPercent": 80,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "e7b5e389-339b-428e-b3d9-03d2608b8567",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cenario3-alunos.cy.ts",
+      "file": "cypress\\e2e\\cenario3-alunos.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "40104160-7342-4815-a27e-9ff892fc46d8",
+          "title": "Alunos",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "1. Cadastrar novo aluno",
+              "fullTitle": "Alunos 1. Cadastrar novo aluno",
+              "timedOut": null,
+              "duration": 7359,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/aluno/new');\ncy.get('input[name=\"alunoNome\"]').type('Aluno Novo E2E');\ncy.get('input[name=\"ra\"]').type(ra);\ncy.get('input[name=\"curso\"]').type('Análise de Sistemas');\ncy.contains('button', 'Salvar').should('not.be.disabled').click();\ncy.get('.swal2-popup').should('be.visible');\ncy.get('.swal2-icon.swal2-success').should('exist');\ncy.get('.swal2-confirm').click();\ncy.url().should('include', '/admin/aluno');\ncy.wait(3000);\ncy.get('input[name=\"ra\"]').clear().type(ra);\ncy.get('.filtrosAlunos a').first().click();\ncy.contains('tr', ra)\n    .should('contain', 'Aluno Novo E2E')\n    .and('contain', 'Análise de Sistemas');",
+              "err": {},
+              "uuid": "17b959f5-43fb-4e6e-aab0-ed9c6901605c",
+              "parentUUID": "40104160-7342-4815-a27e-9ff892fc46d8",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "2. Valida o cadastro com campos obrigatórios faltando",
+              "fullTitle": "Alunos 2. Valida o cadastro com campos obrigatórios faltando",
+              "timedOut": null,
+              "duration": 1209,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/aluno/new');\ncy.contains('button', 'Salvar').should('be.disabled');\ncy.get('input[name=\"alunoNome\"]').type('Aluno Validação E2E');\ncy.contains('button', 'Salvar').should('be.disabled');\ncy.get('input[name=\"ra\"]').type(ra);\ncy.contains('button', 'Salvar').should('be.disabled');\ncy.get('input[name=\"curso\"]').type('Análise de Sistemas');\ncy.contains('button', 'Salvar').should('not.be.disabled');",
+              "err": {},
+              "uuid": "d1c346b9-2c14-4b9a-bd12-3d3861e57d5d",
+              "parentUUID": "40104160-7342-4815-a27e-9ff892fc46d8",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "3. Não permite cadastrar um aluno com RA já existente",
+              "fullTitle": "Alunos 3. Não permite cadastrar um aluno com RA já existente",
+              "timedOut": null,
+              "duration": 5550,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/aluno/new');\ncy.get('input[name=\"alunoNome\"]').type('Aluno Duplicado E2E');\ncy.get('input[name=\"ra\"]').type(ra);\ncy.get('input[name=\"curso\"]').type('Análise de Sistemas');\ncy.contains('button', 'Salvar').should('not.be.disabled').click();\ncy.get('.swal2-popup').should('be.visible');\ncy.get('.swal2-icon.swal2-error').should('exist');\ncy.contains('.swal2-popup', 'Erro').should('be.visible');\ncy.get('.swal2-confirm').click();\ncy.url().should('include', '/admin/aluno/new');",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `.swal2-icon.swal2-error`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `.swal2-icon.swal2-error`, but never found it.\n    at Context.eval (webpack://integrador-front/./cypress/e2e/cenario3-alunos.cy.ts:60:38)",
+                "diff": null
+              },
+              "uuid": "e2ea53e5-3e0e-4e78-81e3-2d104558d366",
+              "parentUUID": "40104160-7342-4815-a27e-9ff892fc46d8",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "4. Editar aluno",
+              "fullTitle": "Alunos 4. Editar aluno",
+              "timedOut": null,
+              "duration": 4089,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/aluno');\ncy.get('table tbody tr .btn-warning').first().click();\ncy.url().should('match', /\\/admin\\/aluno\\/edit\\/\\d+/);\ncy.get('input[name=\"curso\"]').clear().type('Engenharia de Software');\ncy.contains('button', 'Atualizar').should('not.be.disabled').click();\ncy.get('.swal2-popup').should('be.visible');\ncy.get('.swal2-confirm').click();\ncy.url().should('include', '/admin/aluno');",
+              "err": {},
+              "uuid": "870dac20-2c84-416e-93d1-4fb00acd028c",
+              "parentUUID": "40104160-7342-4815-a27e-9ff892fc46d8",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "5. Desativar e reativar um aluno",
+              "fullTitle": "Alunos 5. Desativar e reativar um aluno",
+              "timedOut": null,
+              "duration": 25831,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const ra = `9${Date.now().toString().slice(-7)}`;\ncy.visit('/admin/aluno/new');\ncy.get('input[name=\"alunoNome\"]').type('Aluno Desativar E2E');\ncy.get('input[name=\"ra\"]').type(ra);\ncy.get('input[name=\"curso\"]').type('Análise de Sistemas');\ncy.contains('button', 'Salvar').click();\ncy.get('.swal2-popup').should('be.visible');\ncy.get('.swal2-confirm').click();\ncy.url().should('include', '/admin/aluno');\nconst filtrar = () => {\n    cy.get('input[name=\"ra\"]').clear().type(ra);\n    cy.get('.filtrosAlunos a').first().click();\n    cy.contains('tr', ra).should('exist');\n};\nfiltrar();\ncy.contains('tr', ra).within(() => {\n    cy.get('td').eq(3).should('have.text', 'ATIVO');\n});\ncy.contains('tr', ra).find('.btn-danger').click();\ncy.contains('.swal2-popup', 'Tem certeza que deseja desativar este aluno?').should('be.visible');\ncy.contains('.swal2-confirm', 'Sim').click();\ncy.contains('.swal2-popup', 'Pronto!', { timeout: 10000 })\n    .should('be.visible');\ncy.get('.swal2-confirm').click();\nfiltrar();\ncy.contains('tr', ra).within(() => {\n    cy.get('td').eq(3).should('have.text', 'INATIVO');\n    cy.get('.btn-primary').should('exist');\n    cy.get('.btn-warning').should('not.exist');\n});\ncy.contains('tr', ra).find('.btn-primary').click();\ncy.contains('.swal2-popup', 'Tem certeza que deseja reativar este aluno?').should('be.visible');\ncy.contains('.swal2-confirm', 'Sim').click();\ncy.contains('.swal2-popup', 'Pronto!', { timeout: 10000 })\n    .should('be.visible');\ncy.get('.swal2-confirm').click();\nfiltrar();\ncy.contains('tr', ra).within(() => {\n    cy.get('td').eq(3).should('have.text', 'ATIVO');\n    cy.get('.btn-warning').should('exist');\n    cy.get('.btn-danger').should('exist');\n});",
+              "err": {},
+              "uuid": "449fa76a-a5b9-4320-abb4-a534134efd66",
+              "parentUUID": "40104160-7342-4815-a27e-9ff892fc46d8",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "17b959f5-43fb-4e6e-aab0-ed9c6901605c",
+            "d1c346b9-2c14-4b9a-bd12-3d3861e57d5d",
+            "870dac20-2c84-416e-93d1-4fb00acd028c",
+            "449fa76a-a5b9-4320-abb4-a534134efd66"
+          ],
+          "failures": [
+            "e2ea53e5-3e0e-4e78-81e3-2d104558d366"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 44038,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "8.1.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

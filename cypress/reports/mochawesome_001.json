@@ -1,0 +1,219 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 7,
+    "passes": 7,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-10-10T19:27:27.617Z",
+    "end": "2026-10-10T19:27:40.725Z",
+    "duration": 13108,
+    "testsRegistered": 7,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "40be4397-95ca-4023-848b-95b8cf86f098",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cenario2-equipamentos.cy.ts",
+      "file": "cypress\\e2e\\cenario2-equipamentos.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "7f5941b5-ab3e-41f2-8061-040c7ac1a4b5",
+          "title": "Equipamentos",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "1. Cadastrar novo equipamento",
+              "fullTitle": "Equipamentos 1. Cadastrar novo equipamento",
+              "timedOut": null,
+              "duration": 4452,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/equipamento/new');\ncy.get('input[name=\"patrimonio\"]').clear().type(`PAT-E2E-${timestamp}`);\ncy.get('input[name=\"marca\"]').clear().type('Dell');\ncy.get('input[name=\"modelo\"]').clear().type('Latitude 5420');\ncy.get('input[name=\"observacao\"]').clear().type('Equipamento criado via E2E');\ncy.get('select[name=\"situacao\"]').select('Disponível');\ncy.contains('button', 'Salvar').should('not.be.disabled');\ncy.contains('button', 'Salvar').click();\ncy.get('.swal2-popup').should('be.visible');\ncy.get('.swal2-title').should('contain', 'sucesso');\ncy.url().should('include', '/admin/equipamento');",
+              "err": {},
+              "uuid": "450f6dd7-9949-4cb2-a650-267c8106e91a",
+              "parentUUID": "7f5941b5-ab3e-41f2-8061-040c7ac1a4b5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "2. Cadastrar novo equipamento com informações obrigatórias faltando",
+              "fullTitle": "Equipamentos 2. Cadastrar novo equipamento com informações obrigatórias faltando",
+              "timedOut": null,
+              "duration": 893,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/equipamento/new');\ncy.get('input[name=\"patrimonio\"]').clear().type('TESTE');\ncy.get('input[name=\"marca\"]').clear().type('Marca');\ncy.contains('button', 'Salvar').should('be.disabled');",
+              "err": {},
+              "uuid": "195a4528-ca0c-4634-82d8-603ed601e772",
+              "parentUUID": "7f5941b5-ab3e-41f2-8061-040c7ac1a4b5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "3. Editar equipamento",
+              "fullTitle": "Equipamentos 3. Editar equipamento",
+              "timedOut": null,
+              "duration": 1611,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/equipamento');\ncy.get('table tbody tr').first().find('.btn-warning').click();\ncy.url().should('match', /\\/admin\\/equipamento\\/edit\\/\\d+/);\ncy.get('input[name=\"observacao\"]').clear().type(`Observacao editada via E2E+${timestamp}`);\ncy.contains('button', 'Atualizar').should('not.be.disabled');\ncy.contains('button', 'Atualizar').click();\ncy.get('.swal2-popup').should('be.visible');\ncy.get('.swal2-title').should('contain', 'sucesso');\ncy.url().should('include', '/admin/equipamento');",
+              "err": {},
+              "uuid": "cb5b7bf3-f016-4b5b-8ced-95aa4ece05e1",
+              "parentUUID": "7f5941b5-ab3e-41f2-8061-040c7ac1a4b5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "4. Editar equipamento removendo informações obrigatórias",
+              "fullTitle": "Equipamentos 4. Editar equipamento removendo informações obrigatórias",
+              "timedOut": null,
+              "duration": 756,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/equipamento');\ncy.get('table tbody tr').first().find('.btn-warning').click();\ncy.url().should('match', /\\/admin\\/equipamento\\/edit\\/\\d+/);\ncy.get('input[name=\"patrimonio\"]').clear();\ncy.contains('button', 'Atualizar').should('be.disabled');",
+              "err": {},
+              "uuid": "16a11091-5c61-4da0-9747-a63261c5b8f9",
+              "parentUUID": "7f5941b5-ab3e-41f2-8061-040c7ac1a4b5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "5. Desativar equipamento",
+              "fullTitle": "Equipamentos 5. Desativar equipamento",
+              "timedOut": null,
+              "duration": 840,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/equipamento');\ncy.get('table tbody tr')\n    .first()\n    .find('.btn-danger')\n    .click();\ncy.get('.swal2-popup').should('be.visible');\ncy.get('.swal2-title').should('contain', 'Tem certeza');\ncy.contains('button', 'Sim').click();\ncy.get('.swal2-popup').should('be.visible');\ncy.get('.swal2-title').should('contain', 'Pronto');\n// Verifica se o equipamento desativado apresenta o ícone de reativação\ncy.get('table tbody tr')\n    .first()\n    .find('.btn-primary .bi-arrow-clockwise')\n    .should('exist')\n    .and('be.visible');",
+              "err": {},
+              "uuid": "f0ddd0f1-1756-4e3a-9cf7-afa0cb6814af",
+              "parentUUID": "7f5941b5-ab3e-41f2-8061-040c7ac1a4b5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "6. Reativar equipamento",
+              "fullTitle": "Equipamentos 6. Reativar equipamento",
+              "timedOut": null,
+              "duration": 666,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/equipamento');\ncy.get('table tbody tr').then(($rows) => {\n    const $desativadoBtn = $rows.find('.btn-primary:has(.bi-arrow-clockwise)').first();\n    if ($desativadoBtn.length) {\n        cy.wrap($desativadoBtn).click();\n        cy.get('.swal2-popup').should('be.visible');\n        cy.get('.swal2-title').should('contain', 'Tem certeza');\n        cy.contains('button', 'Sim').click();\n        cy.get('.swal2-popup').should('be.visible');\n        cy.get('.swal2-title').should('contain', 'Pronto');\n    }\n});",
+              "err": {},
+              "uuid": "51853d57-d863-4635-ad9b-bde8777cb5ce",
+              "parentUUID": "7f5941b5-ab3e-41f2-8061-040c7ac1a4b5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "7. Não permite desativar um equipamento emprestado",
+              "fullTitle": "Equipamentos 7. Não permite desativar um equipamento emprestado",
+              "timedOut": null,
+              "duration": 3677,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Realiza o empréstimo\ncy.visit('/admin/emprestimo/new');\ncy.get('input[name=\"ra\"]').clear().type('505233');\ncy.get('input[name=\"ra\"]').blur();\ncy.get('input[name=\"nome\"]')\n    .should('not.have.value', '');\ncy.get('input[name=\"patrimonio\"]').clear().type('QA001');\ncy.get('input[name=\"patrimonio\"]').blur();\ncy.get('input[name=\"marca\"]')\n    .should('not.have.value', '');\ncy.contains('button', 'Iniciar Empréstimo')\n    .should('not.be.disabled')\n    .click();\ncy.get('.swal2-popup.swal2-toast')\n    .should('be.visible');\n// Acessa a listagem de equipamentos\ncy.visit('/admin/equipamento');\n// Localiza o equipamento emprestado\ncy.contains('table tbody tr', 'QA001')\n    .should('exist')\n    .within(() => {\n    cy.get('.btn-danger')\n        .should('exist')\n        .click();\n});\n// Confirma a tentativa de desativação\ncy.get('.swal2-popup')\n    .should('be.visible');\ncy.get('.swal2-title')\n    .should('contain', 'Tem certeza');\ncy.contains('button', 'Sim').click();\n// Espera o sistema rejeitar a operação\ncy.get('.swal2-popup', { timeout: 10000 })\n    .should('be.visible');\ncy.get('.swal2-icon.swal2-error')\n    .should('be.visible');\ncy.get('.swal2-html-container')\n    .should('contain', 'Equipamento possui empréstimo em andamento!');\n// Confirma que o equipamento continua ativo\ncy.visit('/admin/equipamento');\ncy.contains('table tbody tr', 'QA001')\n    .should('exist')\n    .within(() => {\n    cy.get('.btn-danger').should('exist');\n    cy.get('.btn-primary .bi-arrow-clockwise')\n        .should('not.exist');\n});\n// Encerra o empréstimo\ncy.visit('/admin/emprestimo/new');\ncy.get('input[name=\"patrimonio\"]').clear().type('QA001');\ncy.get('input[name=\"patrimonio\"]').blur();\ncy.get('input[name=\"nome\"]')\n    .should('not.have.value', '');\ncy.get('input[name=\"marca\"]')\n    .should('not.have.value', '');\ncy.contains('button', 'Iniciar Empréstimo')\n    .should('be.disabled');\ncy.contains('button', 'Encerrar Empréstimo')\n    .should('not.be.disabled')\n    .click();\ncy.get('.swal2-popup.swal2-toast')\n    .should('be.visible');",
+              "err": {},
+              "uuid": "cab44535-3af0-47f2-8219-36ea5e4b7134",
+              "parentUUID": "7f5941b5-ab3e-41f2-8061-040c7ac1a4b5",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "450f6dd7-9949-4cb2-a650-267c8106e91a",
+            "195a4528-ca0c-4634-82d8-603ed601e772",
+            "cb5b7bf3-f016-4b5b-8ced-95aa4ece05e1",
+            "16a11091-5c61-4da0-9747-a63261c5b8f9",
+            "f0ddd0f1-1756-4e3a-9cf7-afa0cb6814af",
+            "51853d57-d863-4635-ad9b-bde8777cb5ce",
+            "cab44535-3af0-47f2-8219-36ea5e4b7134"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 12895,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "8.1.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

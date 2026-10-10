@@ -1,0 +1,200 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 6,
+    "passes": 6,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-10-10T19:27:16.081Z",
+    "end": "2026-10-10T19:27:25.723Z",
+    "duration": 9642,
+    "testsRegistered": 6,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "075eb290-b6b2-48b6-b187-5ae86226b8e5",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cenario1-emprestimos.cy.ts",
+      "file": "cypress\\e2e\\cenario1-emprestimos.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "af8c9baa-8135-4dce-9f35-5b44cecde508",
+          "title": "Empréstimos",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "1. Realizar empréstimo com aluno e equipamento existente",
+              "fullTitle": "Empréstimos 1. Realizar empréstimo com aluno e equipamento existente",
+              "timedOut": null,
+              "duration": 4770,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/emprestimo/new');\ncy.get('input[name=\"ra\"]').clear().type('505233');\ncy.get('input[name=\"ra\"]').blur();\ncy.get('input[name=\"nome\"]').should('not.have.value', '');\ncy.get('input[name=\"patrimonio\"]').clear().type('NB004');\ncy.get('input[name=\"patrimonio\"]').blur();\ncy.get('input[name=\"marca\"]').should('not.have.value', '');\ncy.contains('button', 'Iniciar Empréstimo').should('not.be.disabled');\ncy.contains('button', 'Iniciar Empréstimo').click();\ncy.get('.swal2-popup.swal2-toast').should('be.visible');",
+              "err": {},
+              "uuid": "57eab1bb-cd12-402e-8cbd-a6b997ecadd3",
+              "parentUUID": "af8c9baa-8135-4dce-9f35-5b44cecde508",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "2. Realizar empréstimo com RA inexistente",
+              "fullTitle": "Empréstimos 2. Realizar empréstimo com RA inexistente",
+              "timedOut": null,
+              "duration": 691,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/emprestimo/new');\ncy.get('input[name=\"ra\"]').clear().type('000000');\ncy.get('input[name=\"ra\"]').blur();\ncy.get('.swal2-popup.swal2-toast').should('be.visible');\ncy.get('.swal2-title').should('contain', 'Aluno não encontrado');",
+              "err": {},
+              "uuid": "5ae6244c-be80-4d0f-bdd7-f213774df92b",
+              "parentUUID": "af8c9baa-8135-4dce-9f35-5b44cecde508",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "3. Realizar empréstimo com patrimônio inexistente",
+              "fullTitle": "Empréstimos 3. Realizar empréstimo com patrimônio inexistente",
+              "timedOut": null,
+              "duration": 859,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/emprestimo/new');\ncy.get('input[name=\"patrimonio\"]').clear().type('PAT_INVALIDO_999');\ncy.get('input[name=\"patrimonio\"]').blur();\ncy.get('.swal2-popup.swal2-toast').should('be.visible');\ncy.get('.swal2-title').should('contain', 'Equipamento não encontrado');",
+              "err": {},
+              "uuid": "4c31b0c0-667d-452b-b916-b1aedcaf4a1d",
+              "parentUUID": "af8c9baa-8135-4dce-9f35-5b44cecde508",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "4. Equipamento com empréstimo ativo não pode ser emprestado novamente",
+              "fullTitle": "Empréstimos 4. Equipamento com empréstimo ativo não pode ser emprestado novamente",
+              "timedOut": null,
+              "duration": 1060,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/emprestimo/new');\ncy.get('input[name=\"ra\"]').clear().type('505233');\ncy.get('input[name=\"ra\"]').blur();\ncy.get('input[name=\"nome\"]').should('not.have.value', '');\ncy.get('input[name=\"patrimonio\"]').clear().type('NB004');\ncy.get('input[name=\"patrimonio\"]').blur();\ncy.get('.swal2-popup.swal2-toast').should('be.visible');\ncy.get('.swal2-title').should('contain', 'já está emprestado');",
+              "err": {},
+              "uuid": "d1f5f628-3a0f-45d9-9f5f-09b9826405ca",
+              "parentUUID": "af8c9baa-8135-4dce-9f35-5b44cecde508",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "5. Aluno com empréstimo ativo não pode iniciar novo empréstimo",
+              "fullTitle": "Empréstimos 5. Aluno com empréstimo ativo não pode iniciar novo empréstimo",
+              "timedOut": null,
+              "duration": 1110,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/emprestimo/new');\ncy.get('input[name=\"ra\"]').clear().type('505233');\ncy.get('input[name=\"ra\"]').blur();\ncy.get('input[name=\"nome\"]').should('not.have.value', '');\ncy.get('input[name=\"patrimonio\"]').clear().type('QA001');\ncy.get('input[name=\"patrimonio\"]').blur();\ncy.contains('button', 'Iniciar Empréstimo').should('not.be.disabled');\ncy.contains('button', 'Iniciar Empréstimo').click();\ncy.get('.swal2-popup.swal2-toast').should('be.visible');\ncy.get('.swal2-title').should('contain', 'já possui empréstimo');",
+              "err": {},
+              "uuid": "208b7f48-1da6-466f-8018-f484df91d593",
+              "parentUUID": "af8c9baa-8135-4dce-9f35-5b44cecde508",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "6. Encerrar empréstimo",
+              "fullTitle": "Empréstimos 6. Encerrar empréstimo",
+              "timedOut": null,
+              "duration": 958,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/emprestimo/new');\ncy.get('input[name=\"patrimonio\"]').clear().type('NB004');\ncy.get('input[name=\"patrimonio\"]').blur();\ncy.get('input[name=\"ra\"]').should('have.value', '505233');\ncy.contains('button', 'Iniciar Empréstimo').should('be.disabled');\ncy.contains('button', 'Encerrar Empréstimo').click();\ncy.get('.swal2-popup.swal2-toast').should('be.visible');\ncy.get('.swal2-title').should('contain', 'Empréstimo encerrado com sucesso');",
+              "err": {},
+              "uuid": "db8e7602-28ef-43eb-9e78-d418169613a7",
+              "parentUUID": "af8c9baa-8135-4dce-9f35-5b44cecde508",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "57eab1bb-cd12-402e-8cbd-a6b997ecadd3",
+            "5ae6244c-be80-4d0f-bdd7-f213774df92b",
+            "4c31b0c0-667d-452b-b916-b1aedcaf4a1d",
+            "d1f5f628-3a0f-45d9-9f5f-09b9826405ca",
+            "208b7f48-1da6-466f-8018-f484df91d593",
+            "db8e7602-28ef-43eb-9e78-d418169613a7"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 9448,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "8.1.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

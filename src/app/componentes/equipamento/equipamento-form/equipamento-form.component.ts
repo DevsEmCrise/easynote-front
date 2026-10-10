@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Equipamentos } from '../../../models/equipamentos';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EquipamentoService } from '../../../services/equipamento-service';
@@ -17,7 +17,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styleUrl: './equipamento-form.component.scss',
   providers: [DatePipe, provideNgxMask()]
 })
-export class EquipamentoFormComponent {
+export class EquipamentoFormComponent implements OnInit {
 
   tituloComponente = "Novo Equipamento"; 
   equipamento: Equipamentos = new Equipamentos();
@@ -127,7 +127,20 @@ export class EquipamentoFormComponent {
       },
       error: erro => {
         console.log(erro);
-        Swal.fire('Erro', erro.error, 'error');
+
+        const mensagemErro =
+          typeof erro.error === 'string'
+            ? erro.error
+            : erro.error?.message ||
+              erro.error?.mensagem ||
+              erro.message ||
+              'Não foi possível atualizar o equipamento.';
+
+        Swal.fire({
+          title: 'Erro',
+          text: mensagemErro,
+          icon: 'error'
+        });
       }
     });
   }

@@ -1,0 +1,190 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 3,
+    "pending": 0,
+    "failures": 2,
+    "start": "2026-10-10T19:28:29.963Z",
+    "end": "2026-10-10T19:28:44.983Z",
+    "duration": 15020,
+    "testsRegistered": 5,
+    "passPercent": 60,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "d7f8b76b-29c8-4d36-9989-5441e90b3b59",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cenario4-relatorios-dashboard.cy.ts",
+      "file": "cypress\\e2e\\cenario4-relatorios-dashboard.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "3fda2781-ac81-4e62-a3ec-16275605a9eb",
+          "title": "Relatórios e Dashboard",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "1. Exibe a listagem de empréstimos na tela de relatórios",
+              "fullTitle": "Relatórios e Dashboard 1. Exibe a listagem de empréstimos na tela de relatórios",
+              "timedOut": null,
+              "duration": 2628,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/relatorio');\ncy.contains('.title', 'Relatório').should('be.visible');\ncy.get('#relatorioList tbody tr').should('have.length.greaterThan', 0);\ncy.get('#relatorioList thead th')\n    .should('contain', 'Patrimônio')\n    .and('contain', 'RA')\n    .and('contain', 'Aluno');",
+              "err": {},
+              "uuid": "90761774-064f-4578-b53a-210efd15ab39",
+              "parentUUID": "3fda2781-ac81-4e62-a3ec-16275605a9eb",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "2. Encerra um empréstimo em andamento pela tela de relatórios",
+              "fullTitle": "Relatórios e Dashboard 2. Encerra um empréstimo em andamento pela tela de relatórios",
+              "timedOut": null,
+              "duration": 6244,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/emprestimo/new');\ncy.get('input[name=\"ra\"]').clear().type('505233');\ncy.get('input[name=\"ra\"]').blur();\ncy.get('input[name=\"nome\"]', { timeout: 10000 })\n    .should('not.have.value', '');\ncy.get('input[name=\"patrimonio\"]').clear().type('NB004');\ncy.get('input[name=\"patrimonio\"]').blur();\ncy.get('input[name=\"marca\"]').should('not.have.value', '');\ncy.contains('button', 'Iniciar Empréstimo')\n    .should('not.be.disabled')\n    .click();\ncy.get('.swal2-popup.swal2-toast').should('be.visible');\ncy.visit('/admin/relatorio');\ncy.get('#relatorioList tbody tr').then(($rows) => {\n    const $ativo = $rows.find('.btn-andamento').first();\n    if ($ativo.length) {\n        const patrimonio = $ativo.closest('tr').find('td').eq(0).text().trim();\n        cy.wrap($ativo).scrollIntoView().click();\n        cy.contains('.swal2-popup', 'Tem certeza?').should('be.visible');\n        cy.contains('.swal2-confirm', 'Sim, encerrar!').click();\n        cy.contains('.swal2-toast', 'Empréstimo encerrado com sucesso!', {\n            timeout: 10000,\n        }).should('be.visible');\n        cy.get('input[name=\"patrimonio\"]').clear().type(patrimonio);\n        cy.get('.filtrosEquipamentos a').first().click();\n        cy.contains('#relatorioList tbody tr', patrimonio).within(() => {\n            cy.get('td').eq(6).should('contain', 'Encerrado');\n            cy.get('td').eq(7).find('button').should('be.disabled');\n        });\n    }\n});",
+              "err": {
+                "message": "CypressError: Timed out retrying after 4050ms: `cy.click()` failed because the center of this element is hidden from view:\n\n`<button _ngcontent-ng-c569757623=\"\" class=\"btn-andamento\">...</button>`\n\nFix this problem, or use `{force: true}` to disable error checking.\n\nhttps://on.cypress.io/element-cannot-be-interacted-with",
+                "estack": "CypressError: Timed out retrying after 4050ms: `cy.click()` failed because the center of this element is hidden from view:\n\n`<button _ngcontent-ng-c569757623=\"\" class=\"btn-andamento\">...</button>`\n\nFix this problem, or use `{force: true}` to disable error checking.\n\nhttps://on.cypress.io/element-cannot-be-interacted-with\n    at ensureIsDescendent (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:114519:66)\n    at ensureDescendents (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:114555:5)\n    at possiblyScrollMultipleTimes (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:114662:22)\n    at scrollContainers (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:114684:16)\n    at ensureDescendentsAndScroll (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:114688:14)\n    at ensureElIsNotCovered (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:114692:5)\n    at runAllChecks (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:114891:52)\n    at retryActionability (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:114928:16)\n    at tryCatcher (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:4285:29)\n    at whenStable (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:147344:68)\n    at <unknown> (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:147285:14)\n    at tryCatcher (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:1671:18)\n    at Promise._fulfill (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:1615:18)\n    at <unknown> (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:5420:46)\nFrom Your Spec Code:\n    at Object.proxyGetter [as get] (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:80410:22)\n    at exists (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:146526:26)\n    at elExists (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:146541:10)\n    at ensureExistence (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:146722:22)\n    at onFailFn (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:146751:53)",
+                "diff": null
+              },
+              "uuid": "53baf1a7-e90c-4382-ac59-db12d9240e5c",
+              "parentUUID": "3fda2781-ac81-4e62-a3ec-16275605a9eb",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "3. Gera o relatório em .xlsx com todos os empréstimos",
+              "fullTitle": "Relatórios e Dashboard 3. Gera o relatório em .xlsx com todos os empréstimos",
+              "timedOut": null,
+              "duration": 3402,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.task('apagarRelatorio');\ncy.visit('/admin/relatorio');\n// Seleciona o máximo antes de contar ou exportar.\ncy.get('#pageSize')\n    .should('be.visible')\n    .then(($select) => {\n    const opcoes = Array.from($select[0].querySelectorAll('option'))\n        .map((option) => Number(option.value))\n        .filter((value) => Number.isFinite(value) && value > 0);\n    expect(opcoes.length, 'Opções numéricas de pageSize')\n        .to.be.greaterThan(0);\n    const maiorQuantidade = Math.max(...opcoes);\n    cy.wrap($select)\n        .select(String(maiorQuantidade));\n});\n// Aguarda a atualização da tabela após a seleção.\ncy.get('#relatorioList tbody tr')\n    .should('exist');\ncy.get('#pageSize').then(($select) => {\n    const selecionado = Number($select[0].value);\n    cy.log(`Quantidade selecionada: ${selecionado}`);\n});\ncy.wait(2000);\n// Conta os registros somente depois de selecionar o máximo.\ncy.get('#relatorioList tbody tr').then(($rows) => {\n    const quantidadeTela = $rows.filter((_, row) => row.querySelectorAll('td').length > 0).length;\n    expect(quantidadeTela, 'Total de registros na tela').to.be.greaterThan(0);\n    // Exporta todos os empréstimos.\n    cy.get('a#imprimirRelatorio')\n        .should('be.visible')\n        .click();\n    // Lê o arquivo Excel gerado.\n    cy.readFile('cypress/downloads/relatorio_emprestimos.xlsx', 'binary', { timeout: 15000 }).then((binario) => {\n        const planilha = xlsx__WEBPACK_IMPORTED_MODULE_0__.read(binario, {\n            type: 'binary',\n        });\n        const aba = planilha.Sheets['Empréstimos'];\n        // eslint-disable-next-line @typescript-eslint/no-unused-expressions\n        expect(aba, 'Aba Empréstimos deve existir').to.exist;\n        if (!aba) {\n            throw new Error('A aba \"Empréstimos\" não foi encontrada.');\n        }\n        const linhas = xlsx__WEBPACK_IMPORTED_MODULE_0__.utils.sheet_to_json(aba);\n        cy.log(`Registros na tela: ${quantidadeTela}`);\n        cy.log(`Registros no Excel: ${linhas.length}`);\n        expect(linhas.length, 'Quantidade exportada deve corresponder à tela').to.eq(quantidadeTela);\n        expect(Object.keys(linhas[0] ?? {}), 'Colunas obrigatórias do relatório').to.include.members([\n            'Patrimônio',\n            'RA',\n            'Nome',\n            'Curso',\n            'Data de Retirada',\n            'Data de Devolução',\n        ]);\n    });\n});",
+              "err": {},
+              "uuid": "74fd62a2-0a9b-4340-833b-dd9e47729ce8",
+              "parentUUID": "3fda2781-ac81-4e62-a3ec-16275605a9eb",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "4. Aplica o filtro no relatório e compara os dados da tela com o Excel",
+              "fullTitle": "Relatórios e Dashboard 4. Aplica o filtro no relatório e compara os dados da tela com o Excel",
+              "timedOut": null,
+              "duration": 1591,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.task('apagarRelatorio');\ncy.visit('/admin/relatorio');\n// Normaliza datas para permitir a comparação.\nconst normalizarData = (valor) => valor.trim().replace(/\\//g, '-');\n// Obtém o patrimônio do primeiro registro.\ncy.get('#relatorioList tbody tr')\n    .first()\n    .find('td')\n    .eq(0)\n    .invoke('text')\n    .then((patrimonioTexto) => {\n    const patrimonio = patrimonioTexto.trim();\n    // Aplica o filtro por patrimônio.\n    cy.get('input[name=\"patrimonio\"]')\n        .clear()\n        .type(patrimonio);\n    cy.get('.filtrosEquipamentos a')\n        .first()\n        .click();\n    // Confirma que a tabela apresenta apenas o patrimônio filtrado.\n    cy.get('#relatorioList tbody tr').should(($rows) => {\n        expect($rows.length).to.be.greaterThan(0);\n        [...$rows].forEach((row) => {\n            const patrimonioLinha = row.querySelectorAll('td')[0]?.innerText.trim();\n            expect(patrimonioLinha).to.eq(patrimonio);\n        });\n    });\n    // Seleciona a maior quantidade disponível no seletor.\n    cy.get('#pageSize')\n        .should('be.visible')\n        .then(($select) => {\n        const select = $select[0];\n        const opcoes = Array.from(select.options)\n            .map((option) => Number(option.value))\n            .filter((value) => Number.isFinite(value) && value > 0);\n        expect(opcoes.length, 'Opções numéricas disponíveis no seletor').to.be.greaterThan(0);\n        const maiorQuantidade = Math.max(...opcoes);\n        cy.wrap($select)\n            .select(String(maiorQuantidade))\n            .should('have.value', String(maiorQuantidade));\n    });\n    // Captura os registros após selecionar o tamanho máximo.\n    cy.get('#relatorioList tbody tr')\n        .should('exist')\n        .then(($rows) => {\n        const registrosTela = [...$rows].map((row) => {\n            const colunas = [...row.querySelectorAll('td')];\n            return [\n                colunas[0]?.innerText.trim() ?? '', // Patrimônio\n                colunas[1]?.innerText.trim() ?? '', // RA\n                colunas[2]?.innerText.trim() ?? '', // Nome/Aluno\n                normalizarData(colunas[4]?.innerText ?? ''), // Retirada\n                normalizarData(colunas[5]?.innerText ?? ''), // Devolução\n            ];\n        });\n        const quantidadeTela = registrosTela.length;\n        expect(quantidadeTela).to.be.greaterThan(0);\n        // Remove eventual arquivo anterior antes de exportar.\n        cy.task('apagarRelatorio');\n        // Exporta os registros filtrados.\n        cy.contains('a#imprimirRelatorio', 'Imprimir').click();\n        cy.readFile('cypress/downloads/relatorio_emprestimos.xlsx', 'binary', { timeout: 15000 }).then((binario) => {\n            const planilha = xlsx__WEBPACK_IMPORTED_MODULE_0__.read(binario, {\n                type: 'binary',\n            });\n            const aba = planilha.Sheets['Empréstimos'];\n            // eslint-disable-next-line @typescript-eslint/no-unused-expressions\n            expect(aba, 'Aba Empréstimos deve existir').to.exist;\n            const linhas = xlsx__WEBPACK_IMPORTED_MODULE_0__.utils.sheet_to_json(aba);\n            // Converte os dados do Excel para o formato da tela.\n            const registrosExcel = linhas.map((linha) => [\n                String(linha['Patrimônio'] ?? '').trim(),\n                String(linha['RA'] ?? '').trim(),\n                String(linha['Nome'] ?? '').trim(),\n                normalizarData(String(linha['Data de Retirada'] ?? '')),\n                normalizarData(String(linha['Data de Devolução'] ?? '')),\n            ]);\n            // 1. Compara as quantidades.\n            cy.log(`Registros na tela: ${quantidadeTela}`);\n            cy.log(`Registros no Excel: ${registrosExcel.length}`);\n            expect(registrosExcel.length, 'Quantidade de registros no Excel').to.eq(quantidadeTela);\n            // 2. Confirma que todos pertencem ao patrimônio filtrado.\n            registrosExcel.forEach((registro) => {\n                expect(registro[0]).to.eq(patrimonio);\n            });\n            // 3. Compara todos os campos, sem depender da ordem.\n            const chaveRegistro = (registro) => JSON.stringify(registro);\n            const telaOrdenada = registrosTela\n                .map(chaveRegistro)\n                .sort();\n            const excelOrdenado = registrosExcel\n                .map(chaveRegistro)\n                .sort();\n            expect(excelOrdenado, 'Os registros do Excel devem corresponder aos da tela').to.deep.equal(telaOrdenada);\n        });\n    });\n});",
+              "err": {
+                "message": "AssertionError: Os registros do Excel devem corresponder aos da tela: expected [ Array(21) ] to deeply equal [ Array(21) ]",
+                "estack": "AssertionError: Os registros do Excel devem corresponder aos da tela: expected [ Array(21) ] to deeply equal [ Array(21) ]\n    at Context.eval (webpack://integrador-front/./cypress/e2e/cenario4-relatorios-dashboard.cy.ts:325:22)\n    at getRet (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:121066:20)\n    at tryCatcher (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (https://easynote.beatrizschindler.com.br/__cypress/runner/cypress_runner.js:4285:29)",
+                "diff": "   '[\"NB004\",\"505233\",\"TesteE2E\",\"10-10-2026 18:53\",\"10-10-2026 19:00\"]',\n   '[\"NB004\",\"505233\",\"TesteE2E\",\"10-10-2026 19:02\",\"10-10-2026 19:26\"]',\n   '[\"NB004\",\"505233\",\"TesteE2E\",\"10-10-2026 19:10\",\"10-10-2026 19:26\"]',\n   '[\"NB004\",\"505233\",\"TesteE2E\",\"10-10-2026 19:27\",\"10-10-2026 19:27\"]',\n-   '[\"NB004\",\"505233\",\"TesteE2E\",\"10-10-2026 19:28\",\"31-12-1969 21:00\"]' ]\n+   '[\"NB004\",\"505233\",\"TesteE2E\",\"10-10-2026 19:28\",\"\"]' ]\n"
+              },
+              "uuid": "aced82e9-45ab-4dce-a9ff-4b41601c4597",
+              "parentUUID": "3fda2781-ac81-4e62-a3ec-16275605a9eb",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "5. Exibe a dashboard com os períodos e os gráficos de empréstimos",
+              "fullTitle": "Relatórios e Dashboard 5. Exibe a dashboard com os períodos e os gráficos de empréstimos",
+              "timedOut": null,
+              "duration": 824,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/admin/dashboard');\ncy.contains('div.title', 'Bem Vindo ao EasyNote').should('be.visible');\ncy.contains('h3', 'Empréstimos por Dia').should('be.visible');\ncy.contains('h5', 'Cursos com mais Utilizações').should('exist');\ncy.contains('h5', 'Equipamentos mais Emprestados').should('exist');\ncy.get('#periodo').find('option').should('have.length', 3);\n['7', '15', '30'].forEach((periodo) => {\n    cy.get('#periodo').select(periodo).should('have.value', periodo);\n});\ncy.get('ngx-charts-bar-vertical').should('exist');\ncy.get('ngx-charts-bar-horizontal').should('have.length', 2);\ncy.get('.graficos-div').should('be.visible');",
+              "err": {},
+              "uuid": "ca9344aa-8c26-4613-aaef-6e584527eca8",
+              "parentUUID": "3fda2781-ac81-4e62-a3ec-16275605a9eb",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "90761774-064f-4578-b53a-210efd15ab39",
+            "74fd62a2-0a9b-4340-833b-dd9e47729ce8",
+            "ca9344aa-8c26-4613-aaef-6e584527eca8"
+          ],
+          "failures": [
+            "53baf1a7-e90c-4382-ac59-db12d9240e5c",
+            "aced82e9-45ab-4dce-a9ff-4b41601c4597"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 14689,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "8.1.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
