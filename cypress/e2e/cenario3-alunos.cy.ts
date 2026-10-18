@@ -117,6 +117,8 @@ describe('Alunos', () => {
 
     cy.contains('.swal2-popup', 'Pronto!', { timeout: 10000 })
       .should('be.visible');
+    cy.contains('.swal2-html-container', 'Aluno desativado com sucesso!')
+    .should('be.visible');
 
     cy.get('.swal2-confirm').click();
 
@@ -139,6 +141,8 @@ describe('Alunos', () => {
 
     cy.contains('.swal2-popup', 'Pronto!', { timeout: 10000 })
       .should('be.visible');
+    cy.contains('.swal2-html-container', 'Aluno reativado com sucesso!')
+    .should('be.visible');
 
     cy.get('.swal2-confirm').click();
 

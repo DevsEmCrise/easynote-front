@@ -8,10 +8,12 @@ describe('Equipamentos', () => {
   );
   });
 
+  const patrimonio = `PAT-E2E-${timestamp}`;
+
   it('1. Cadastrar novo equipamento', () => {
     cy.visit('/admin/equipamento/new');
 
-    cy.get('input[name="patrimonio"]').clear().type(`PAT-E2E-${timestamp}`);
+    cy.get('input[name="patrimonio"]').clear().type(patrimonio);
     cy.get('input[name="marca"]').clear().type('Dell');
     cy.get('input[name="modelo"]').clear().type('Latitude 5420');
     cy.get('input[name="observacao"]').clear().type('Equipamento criado via E2E');
@@ -35,7 +37,49 @@ describe('Equipamentos', () => {
     cy.contains('button', 'Salvar').should('be.disabled');
   });
 
-  it('3. Editar equipamento', () => {
+  it('3. Patrimonio duplicado', () => {
+    cy.visit('/admin/equipamento/new');
+
+    cy.get('input[name="patrimonio"]').clear().type(patrimonio);
+    cy.get('input[name="marca"]').clear().type('Dell');
+    cy.get('input[name="modelo"]').clear().type('Latitude 5420');
+    cy.get('input[name="observacao"]').clear().type('Equipamento com patrimonio duplicado');
+
+    cy.get('select[name="situacao"]').select('Disponível');
+
+    cy.contains('button', 'Salvar').click();
+
+    cy.get('.swal2-popup').should('be.visible');
+    cy.get('.swal2-title').should('contain', 'Erro');
+    cy.get('.swal2-html-container').should('contain', 'Patrimônio já existe!');
+  });
+
+  it('4. Validação do campo data de aquisição - Data no Futuro', () => {
+    cy.visit('/admin/equipamento/new');
+
+    cy.get('input[name="patrimonio"]').clear().type(patrimonio);
+    cy.get('input[name="marca"]').clear().type('Dell');
+    cy.get('input[name="modelo"]').clear().type('Latitude 5420');
+    cy.get('input[name="dataAquisicao"]').clear().type('01-01-2027');
+    cy.get('input[name="observacao"]').clear().type('Equipamento criado via E2E');
+
+    cy.contains('button', 'Salvar').should('be.disabled');
+  });
+
+  it('5. Validação do campo data de aquisição - Data inválida', () => {
+      cy.visit('/admin/equipamento/new');
+
+      cy.get('input[name="patrimonio"]').clear().type(patrimonio);
+      cy.get('input[name="marca"]').clear().type('Dell');
+      cy.get('input[name="modelo"]').clear().type('Latitude 5420');
+      cy.get('input[name="dataAquisicao"]').clear().type('20-26-1810');
+      cy.get('input[name="observacao"]').clear().type('Equipamento criado via E2E');
+
+      cy.contains('button', 'Salvar').should('be.disabled');
+  });
+
+
+  it('6. Editar equipamento', () => {
     cy.visit('/admin/equipamento');
 
     cy.get('table tbody tr').first().find('.btn-warning').click();
@@ -51,7 +95,7 @@ describe('Equipamentos', () => {
     cy.url().should('include', '/admin/equipamento');
   });
 
-  it('4. Editar equipamento removendo informações obrigatórias', () => {
+  it('7. Editar equipamento removendo informações obrigatórias', () => {
     cy.visit('/admin/equipamento');
 
     cy.get('table tbody tr').first().find('.btn-warning').click();
@@ -62,7 +106,7 @@ describe('Equipamentos', () => {
     cy.contains('button', 'Atualizar').should('be.disabled');
   });
 
-  it('5. Desativar equipamento', () => {
+  it('8. Desativar equipamento', () => {
     cy.visit('/admin/equipamento');
 
     cy.get('table tbody tr')
@@ -86,7 +130,7 @@ describe('Equipamentos', () => {
       .and('be.visible');
   });
 
-  it('6. Reativar equipamento', () => {
+  it('9. Reativar equipamento', () => {
     cy.visit('/admin/equipamento');
 
     cy.get('table tbody tr').then(($rows) => {
@@ -106,7 +150,7 @@ describe('Equipamentos', () => {
     });
   });
 
-  it('7. Não permite desativar um equipamento emprestado', () => {
+  it('10. Não permite desativar um equipamento emprestado', () => {
     // Realiza o empréstimo
     cy.visit('/admin/emprestimo/new');
 

@@ -339,11 +339,26 @@ it('4. Aplica o filtro no relatório e compara os dados da tela com o Excel', ()
     cy.get('#periodo').find('option').should('have.length', 3);
 
     ['7', '15', '30'].forEach((periodo) => {
-      cy.get('#periodo').select(periodo).should('have.value', periodo);
+        cy.get('#periodo').select(periodo).should('have.value', periodo);
     });
 
     cy.get('ngx-charts-bar-vertical').should('exist');
     cy.get('ngx-charts-bar-horizontal').should('have.length', 2);
     cy.get('.graficos-div').should('be.visible');
-  });
+
+    const hoje = new Date();
+    const dataHoje = [
+        String(hoje.getDate()).padStart(2, '0'),
+        String(hoje.getMonth() + 1).padStart(2, '0'),
+        hoje.getFullYear()
+    ].join('-');
+
+    cy.get('ngx-charts-bar-vertical').within(() => {
+        cy.get('.tick text').should(($rotulos) => {
+            const datas = [...$rotulos].map((el) => el.textContent.trim());
+
+            expect(datas).to.include(dataHoje);
+        });
+    });
+});
 });
